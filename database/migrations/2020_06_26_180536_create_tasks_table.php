@@ -11,19 +11,19 @@ class CreateTasksTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up ()
     {
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create( 'tasks', function ( Blueprint $table ) {
             $table->id();
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->tinyInteger('duration')->nullable();
-            $table->date('date')->nullable();
-            $table->time('start_at', 0)->nullable();
-            $table->time('end_at', 0)->nullable();
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->string( 'name' );
+            $table->text( 'description' )->nullable();
+            $table->tinyInteger( 'duration' )->nullable();
+            $table->date( 'task_day' )->nullable();
+            $table->time( 'start_at', 0 )->nullable();
+            $table->time( 'end_at', 0 )->nullable();
+            $table->unsignedBigInteger( 'user_id' );
             $table->timestamps();
-        });
+        } );
     }
 
     /**
@@ -31,8 +31,8 @@ class CreateTasksTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down ()
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists( 'tasks' );
     }
 }

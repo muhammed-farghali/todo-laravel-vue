@@ -1,0 +1,56 @@
+# To-Do App
+- Note
+    - If guest do not register:
+        -> He'll deal only with UI without storing its data in DB
+        -> but store it in browser local storage
+- API
+    - Database Structure
+        - Tables
+            - tasks
+                - id, name, {description}, {duration}, {task_day}, {start_at}, {end_at}, {user_id}
+                - Task Factory
+                - Task Seeder
+            - users
+    - Endpoints
+        - [GET]         api/tasks/
+        - [POST]        api/tasks/
+        - [GET]         api/tasks/{task}
+        - [PUT/PATCH]   api/tasks/{task}
+        - [DELETE]      api/tasks/{task}
+    - Testing
+        - Features
+            - Read Tasks
+            - Read Single Task
+            - Create Task
+            - Update Task
+            - Delete Task
+        - Units
+    - API Resources
+    - AuthN && AuthZ
+- Vue UI
+
+------------------------------------------------------------------------------------------------
+
+- Success [Data Structure]
+    - {
+        code: xxx,
+        message: 'xxxx...',
+        data: {
+
+        }
+    }
+    - Codes
+        - Get Data      => 2000
+        - Post Data     => 2001
+        - Update Data   => 2002
+        - Delete Data   => 2003
+- Error [Data Structure]
+    - {
+        code: xxx,
+        message: 'xxxx...'
+    }
+    - Codes
+        - Get Data      => 4000
+        - Post Data     => 4001
+        - Update Data   => 4002
+        - Delete Data   => 4003
