@@ -12,16 +12,33 @@ class ReadTasksTest extends TestCase
     /**
      * @test
      */
-    public function authenticated_user_can_get_its_tasks ()
+    public function authenticated_user_can_get_all_tasks ()
     {
         $this->signIn();
-        $tasks = $this->user->tasks;
-        $this->getJson( 'api/tasks' )
+        $tasks = factory( 'App\Task', 10 )->raw();
+        $this->user->tasks()->createMany( $tasks );
+
+        $this->getJson( '/api/tasks' )
              ->assertStatus( 200 )
              ->assertJson( [
-                 'code'    => 2000,
+                 'success' => true,
+                 'code'    => 's2000',
                  'message' => 'get data successfully.',
                  'data'    => $tasks
+             ] );
+    }
+
+    /**
+     * @test
+     */
+    public function guest_cannot_access_tasks_page ()
+    {
+        $this->getJson( '/api/tasks' )
+             ->assertStatus( 401 )
+             ->assertJson( [
+                 'success' => false,
+                 'code'    => 'e4000',
+                 'message' => 'unauthenticated user.'
              ] );
     }
 }

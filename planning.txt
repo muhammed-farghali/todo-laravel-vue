@@ -2,7 +2,7 @@
 - Note
     - If guest do not register:
         -> He'll deal only with UI without storing its data in DB
-        -> but store it in browser local storage
+        -> but store it in local storage
 - API
     - Database Structure
         - Tables
@@ -19,8 +19,12 @@
         - [DELETE]      api/tasks/{task}
     - Testing
         - Features
-            - Read Tasks
-            - Read Single Task
+            - Read Tasks                                                [Done]
+                - Authenticated user get its tasks                      [O]
+                - Unauthenticated user cannot access the index page.    [O]
+            - Read Single Task                                          [Working..]
+                - Authenticated user get task of its tasks              [X]
+                - Unauthenticated user cannot access the show page.     [X]
             - Create Task
             - Update Task
             - Delete Task
@@ -33,24 +37,27 @@
 
 - Success [Data Structure]
     - {
-        code: xxx,
-        message: 'xxxx...',
+        success: true,
+        code: xxxx,
+        message: '......',
         data: {
 
         }
     }
     - Codes
-        - Get Data      => 2000
-        - Post Data     => 2001
-        - Update Data   => 2002
-        - Delete Data   => 2003
+        - Get Data      => s2000
+        - Post Data     => s2001
+        - Update Data   => s2002
+        - Delete Data   => s2003
+
 - Error [Data Structure]
     - {
-        code: xxx,
-        message: 'xxxx...'
+        success: false,
+        code: xxxx,
+        message: '......'
     }
     - Codes
-        - Get Data      => 4000
-        - Post Data     => 4001
-        - Update Data   => 4002
-        - Delete Data   => 4003
+        - Get Data      => e4000
+        - Post Data     => e4001
+        - Update Data   => e4002
+        - Delete Data   => e4003
