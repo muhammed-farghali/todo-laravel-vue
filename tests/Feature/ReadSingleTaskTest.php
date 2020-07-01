@@ -12,7 +12,7 @@ class ReadSingleTaskTest extends TestCase
     /**
      * @test
      */
-    public function authenticated_user_can_get_single_task_of_his_tasks ()
+    public function authenticated_user_can_access_single_task_of_his_tasks ()
     {
         $this->signIn();
         $task = factory( 'App\Task' )->raw();
@@ -43,16 +43,16 @@ class ReadSingleTaskTest extends TestCase
     /**
      * @test
      */
-//    public function guest_cannot_get_task ()
-//    {
-//        $user = create( 'App\User' );
-//        $user->tasks()->create( factory( 'App\Task' )->raw() );
-//        $this->getJson( '/api/tasks/1' )
-//             ->assertStatus( 401 )
-//             ->assertJson( [
-//                 'success' => false,
-//                 'code'    => 'e4000',
-//                 'message' => 'unauthenticated user.'
-//             ] );
-//    }
+    public function guest_cannot_access_single_task ()
+    {
+        $user = create( 'App\User' );
+        $user->tasks()->create( factory( 'App\Task' )->raw() );
+        $this->getJson( '/api/tasks/1' )
+             ->assertStatus( 401 )
+             ->assertJson( [
+                 'success' => false,
+                 'code'    => 'e4000',
+                 'message' => 'unauthenticated user.'
+             ] );
+    }
 }

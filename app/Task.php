@@ -12,4 +12,9 @@ class Task extends Model
     {
         return $this->belongsTo( 'App\User' );
     }
+
+    public function path ()
+    {
+        return '/api/tasks/' . $this->id;
+    }
 }

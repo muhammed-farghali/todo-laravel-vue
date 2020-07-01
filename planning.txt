@@ -19,15 +19,15 @@
         - [DELETE]      api/tasks/{task}
     - Testing
         - Features
-            - Read Tasks                                                [Done]
-                - Authenticated user get its tasks                      [O]
-                - Unauthenticated user cannot access the index page.    [O]
-            - Read Single Task                                          [Working..]
-                - Authenticated user get task of its tasks              [X]
-                - Unauthenticated user cannot access the show page.     [X]
-            - Create Task
-            - Update Task
-            - Delete Task
+            - Read Tasks                                                    [Done]
+                - Authenticated user access his tasks                       [O]
+                - Unauthenticated user cannot access the index page.        [O]
+            - Read Single Task                                              [Done]
+                - Authenticated user access task of his tasks               [O]
+                - Unauthenticated user cannot access single task.           [O]
+            - Create | Update | Delete Task                                 [Working...]
+                - Authenticated user can (create|update|delete) task        [X]
+                - Unauthenticated user cannot (create|update|delete) task   [X]
         - Units
     - API Resources
     - AuthN && AuthZ

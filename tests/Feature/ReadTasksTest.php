@@ -12,7 +12,7 @@ class ReadTasksTest extends TestCase
     /**
      * @test
      */
-    public function authenticated_user_can_get_all_tasks ()
+    public function authenticated_user_can_access_all_tasks ()
     {
         $this->signIn();
         $tasks = factory( 'App\Task', 10 )->raw();
@@ -31,7 +31,7 @@ class ReadTasksTest extends TestCase
     /**
      * @test
      */
-    public function guest_cannot_access_tasks_page ()
+    public function guest_cannot_access_tasks ()
     {
         $this->getJson( '/api/tasks' )
              ->assertStatus( 401 )

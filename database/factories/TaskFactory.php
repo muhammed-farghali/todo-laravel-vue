@@ -38,6 +38,8 @@ $factory->define( Task::class, function ( Faker $faker ) {
         },
         'start_at'    => $startTime,
         'end_at'      => $endTime,
-        'user_id'     => User::pluck( 'id' )->random()
+        'user_id'     => User::pluck( 'id' )->isEmpty()
+            ? factory( 'App\User' )->create()->id
+            : User::pluck( 'id' )->random()
     ];
 } );

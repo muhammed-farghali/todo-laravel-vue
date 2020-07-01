@@ -28,7 +28,7 @@ class TaskController extends Controller
             'message' => $hasTasks ? 'get data successfully.' : 'failed to get data.',
         ];
         $hasTasks ? $res['data'] = $tasks : null;
-        return response()->json( $res, 200 );
+        return response( $res, 200 );
     }
 
     /**
@@ -39,7 +39,13 @@ class TaskController extends Controller
      */
     public function store ( Request $request )
     {
-        //
+        $task = auth()->user()->tasks()->create( $request->all() );
+        return response( [
+            'success' => true,
+            'code'    => 's2001',
+            'message' => 'insert data successfully.',
+            'data'    => $task
+        ], 201 );
     }
 
     /**
@@ -56,7 +62,7 @@ class TaskController extends Controller
                 'code'    => 'e2000',
                 'message' => 'unauthorized user.'
             ];
-            return response()->json( $res, 401 );
+            return response( $res, 401 );
         }
         $res = [
             'success' => true,
@@ -64,7 +70,7 @@ class TaskController extends Controller
             'message' => 'get data successfully.',
             'data'    => $task
         ];
-        return response()->json( $res, 200 );
+        return response( $res, 200 );
     }
 
     /**
@@ -76,7 +82,13 @@ class TaskController extends Controller
      */
     public function update ( Request $request, Task $task )
     {
-        //
+        $task->update( $request->all() );
+        return response( [
+            'success' => true,
+            'code'    => 's2002',
+            'message' => 'update data successfully.',
+            'data'    => $task
+        ], 200 );
     }
 
     /**
@@ -87,6 +99,12 @@ class TaskController extends Controller
      */
     public function destroy ( Task $task )
     {
-        //
+        if ( $task->delete() ) {
+            return response( [
+                'success' => true,
+                'code'    => 's2003',
+                'message' => 'delete data successfully.'
+            ], 200 );
+        }
     }
 }
