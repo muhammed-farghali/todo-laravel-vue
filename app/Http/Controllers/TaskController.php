@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Task;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class TaskController extends Controller
 {
@@ -15,7 +16,7 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index ()
     {
@@ -34,8 +35,8 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store ( Request $request )
     {
@@ -51,12 +52,22 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Task $task
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
-    public function show ( Task $task )
+    public function show ( int $id )
     {
-        if ( $task->user_id != auth()->user()->id ) {
+        $task = Task::find( $id );
+
+        if ( $task === null ) {
+            return response( [
+                'success' => false,
+                'code'    => 'e2000',
+                'message' => 'failed to get data.'
+            ], 404 );
+        }
+
+        if ( (int)$task->user_id !== (int)auth()->user()->id ) {
             $res = [
                 'success' => false,
                 'code'    => 'e2000',
@@ -76,9 +87,9 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Task                $task
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Task    $task
+     * @return Response
      */
     public function update ( Request $request, Task $task )
     {
@@ -94,17 +105,24 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Task $task
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
-    public function destroy ( Task $task )
+    public function destroy ( int $id )
     {
-        if ( $task->delete() ) {
+        $task = Task::find( $id );
+        if ( $task === null ) {
             return response( [
-                'success' => true,
-                'code'    => 's2003',
-                'message' => 'delete data successfully.'
-            ], 200 );
+                'success' => false,
+                'code'    => 'e2003',
+                'message' => 'failed to delete the resource.'
+            ], 404 );
         }
+        $task->delete();
+        return response( [
+            'success' => true,
+            'code'    => 's2003',
+            'message' => 'delete data successfully.'
+        ], 200 );
     }
 }

@@ -26,8 +26,8 @@
                 - Authenticated user access task of his tasks               [O]
                 - Unauthenticated user cannot access single task.           [O]
             - Create | Update | Delete Task                                 [Working...]
-                - Authenticated user can (create|update|delete) task        [X]
-                - Unauthenticated user cannot (create|update|delete) task   [X]
+                - Authenticated user can (create|update|delete) task        [O]
+                - Unauthenticated user cannot (create|update|delete) task   [O]
         - Units
     - API Resources
     - AuthN && AuthZ
@@ -40,24 +40,20 @@
         success: true,
         code: xxxx,
         message: '......',
-        data: {
-
-        }
+        data: {}
     }
-    - Codes
-        - Get Data      => s2000
-        - Post Data     => s2001
-        - Update Data   => s2002
-        - Delete Data   => s2003
-
 - Error [Data Structure]
     - {
         success: false,
         code: xxxx,
         message: '......'
     }
-    - Codes
-        - Get Data      => e4000
-        - Post Data     => e4001
-        - Update Data   => e4002
-        - Delete Data   => e4003
+
+- Response Codes
+    | Operation     |  Success  |  Error |                              Message                            |
+    |---------------|-----------|--------|------------- Success ------------|----------- Error ------------|
+    | Get Data      |  s2000    |  e4000 |
+    | Post Data     |  s2001    |  e4001 |
+    | Update Data   |  s2002    |  e4002 |
+    | Delete Data   |  s2003    |  e4003 |
+    |------------------------------------|----------------------------------|------------------------------|
