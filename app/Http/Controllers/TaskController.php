@@ -70,8 +70,8 @@ class TaskController extends Controller
         if ( (int)$task->user_id !== (int)auth()->user()->id ) {
             $res = [
                 'success' => false,
-                'code'    => 'e2000',
-                'message' => 'unauthorized user.'
+                'code'    => 'e4005',
+                'message' => 'Unauthorized User'
             ];
             return response( $res, 401 );
         }

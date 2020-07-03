@@ -34,8 +34,8 @@ class CreateUpdateDeleteTaskTest extends TestCase
         $this->postJson( '/api/tasks', $task )
              ->assertStatus( 401 )->assertJson( [
                 'success' => false,
-                'code'    => 'e4000',
-                'message' => 'unauthenticated user.'
+                'code'    => 'e4004',
+                'message' => 'Unauthenticated User'
             ] );
     }
 
@@ -70,8 +70,8 @@ class CreateUpdateDeleteTaskTest extends TestCase
         $this->putJson( $task->path(), [ 'name' => 'update task' ] )
              ->assertStatus( 401 )->assertJson( [
                 'success' => false,
-                'code'    => 'e4000',
-                'message' => 'unauthenticated user.'
+                'code'    => 'e4004',
+                'message' => 'Unauthenticated User'
             ] );
     }
 
@@ -102,8 +102,8 @@ class CreateUpdateDeleteTaskTest extends TestCase
              ->assertStatus( 401 )
              ->assertJson( [
                  'success' => false,
-                 'code'    => 'e4000',
-                 'message' => 'unauthenticated user.'
+                 'code'    => 'e4004',
+                 'message' => 'Unauthenticated User'
              ] );
     }
 }

@@ -25,11 +25,11 @@
             - Read Single Task                                              [Done]
                 - Authenticated user access task of his tasks               [O]
                 - Unauthenticated user cannot access single task.           [O]
-            - Create | Update | Delete Task                                 [Working...]
+            - Create | Update | Delete Task                                 [Done]
                 - Authenticated user can (create|update|delete) task        [O]
                 - Unauthenticated user cannot (create|update|delete) task   [O]
         - Units
-    - API Resources
+    - API Resources                                                         [Working...]
     - AuthN && AuthZ
 - Vue UI
 
@@ -50,10 +50,13 @@
     }
 
 - Response Codes
-    | Operation     |  Success  |  Error |                              Message                            |
-    |---------------|-----------|--------|------------- Success ------------|----------- Error ------------|
-    | Get Data      |  s2000    |  e4000 |    Data gotten successfully      |   Get data failed            |
-    | Post Data     |  s2001    |  e4001 |    Data inserted successfully    |   Insert data failed         |
-    | Update Data   |  s2002    |  e4002 |    Data updated successfully     |   Update data failed         |
-    | Delete Data   |  s2003    |  e4003 |    Data deleted successfully     |   Delete data failed         |
-    |------------------------------------|----------------------------------|------------------------------|
+    |----------------|-----------|---------|----------------------------------------------------------------|
+    | Operation      |  Success  |  Error  |                              Message                           |
+    |----------------|-----------|---------|------------- Success -----------|----------- Error ------------|
+    | Get Data       |  s2000    |  e4000  |    Data gotten successfully     |   Get data failed            |
+    | Post Data      |  s2001    |  e4001  |    Data inserted successfully   |   Insert data failed         |
+    | Update Data    |  s2002    |  e4002  |    Data updated successfully    |   Update data failed         |
+    | Delete Data    |  s2003    |  e4003  |    Data deleted successfully    |   Delete data failed         |
+    | Authentication |           |  e4004  |                                 |   Unauthenticated User       |
+    | Authorization  |           |  e4005  |                                 |   Unauthorized User          |
+    |----------------|-----------|---------|---------------------------------|------------------------------|

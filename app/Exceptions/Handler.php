@@ -59,8 +59,8 @@ class Handler extends ExceptionHandler
         if ( $request->expectsJson() ) {
             $res = [
                 'success' => false,
-                'code'    => 'e4000',
-                'message' => 'unauthenticated user.'
+                'code'    => 'e4004',
+                'message' => 'Unauthenticated User'
             ];
             return response()->json( $res, 401 );
         }
