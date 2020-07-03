@@ -27,7 +27,7 @@ class ReadSingleTaskTest extends TestCase
              ->assertJson( [
                  'success' => true,
                  'code'    => 's2000',
-                 'message' => 'get data successfully.',
+                 'message' => 'Data gotten successfully',
                  'data'    => $task
              ] );
 

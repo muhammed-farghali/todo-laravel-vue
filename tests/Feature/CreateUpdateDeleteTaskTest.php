@@ -20,7 +20,7 @@ class CreateUpdateDeleteTaskTest extends TestCase
              ->assertStatus( 201 )->assertJson( [
                 'success' => true,
                 'code'    => 's2001',
-                'message' => 'insert data successfully.',
+                'message' => 'Data inserted successfully',
                 'data'    => $task
             ] );
     }
@@ -55,7 +55,7 @@ class CreateUpdateDeleteTaskTest extends TestCase
              ->assertStatus( 200 )->assertJson( [
                 'success' => true,
                 'code'    => 's2002',
-                'message' => 'update data successfully.',
+                'message' => 'Data updated successfully',
                 'data'    => $updateTask
             ] );
 
@@ -88,7 +88,7 @@ class CreateUpdateDeleteTaskTest extends TestCase
              ->assertJson( [
                  'success' => true,
                  'code'    => 's2003',
-                 'message' => 'delete data successfully.'
+                 'message' => 'Data deleted successfully'
              ] );
     }
 

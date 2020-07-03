@@ -52,8 +52,8 @@
 - Response Codes
     | Operation     |  Success  |  Error |                              Message                            |
     |---------------|-----------|--------|------------- Success ------------|----------- Error ------------|
-    | Get Data      |  s2000    |  e4000 |
-    | Post Data     |  s2001    |  e4001 |
-    | Update Data   |  s2002    |  e4002 |
-    | Delete Data   |  s2003    |  e4003 |
+    | Get Data      |  s2000    |  e4000 |    Data gotten successfully      |   Get data failed            |
+    | Post Data     |  s2001    |  e4001 |    Data inserted successfully    |   Insert data failed         |
+    | Update Data   |  s2002    |  e4002 |    Data updated successfully     |   Update data failed         |
+    | Delete Data   |  s2003    |  e4003 |    Data deleted successfully     |   Delete data failed         |
     |------------------------------------|----------------------------------|------------------------------|

@@ -26,7 +26,7 @@ class TaskController extends Controller
         $res = [
             'success' => $hasTasks ? true : false,
             'code'    => $hasTasks ? 's2000' : 'e2000',
-            'message' => $hasTasks ? 'get data successfully.' : 'failed to get data.',
+            'message' => $hasTasks ? 'Data gotten successfully' : 'Get data failed',
         ];
         $hasTasks ? $res['data'] = $tasks : null;
         return response( $res, 200 );
@@ -44,7 +44,7 @@ class TaskController extends Controller
         return response( [
             'success' => true,
             'code'    => 's2001',
-            'message' => 'insert data successfully.',
+            'message' => 'Data inserted successfully',
             'data'    => $task
         ], 201 );
     }
@@ -63,7 +63,7 @@ class TaskController extends Controller
             return response( [
                 'success' => false,
                 'code'    => 'e2000',
-                'message' => 'failed to get data.'
+                'message' => 'Get data failed'
             ], 404 );
         }
 
@@ -78,7 +78,7 @@ class TaskController extends Controller
         $res = [
             'success' => true,
             'code'    => 's2000',
-            'message' => 'get data successfully.',
+            'message' => 'Data gotten successfully',
             'data'    => $task
         ];
         return response( $res, 200 );
@@ -97,7 +97,7 @@ class TaskController extends Controller
         return response( [
             'success' => true,
             'code'    => 's2002',
-            'message' => 'update data successfully.',
+            'message' => 'Data updated successfully',
             'data'    => $task
         ], 200 );
     }
@@ -115,14 +115,14 @@ class TaskController extends Controller
             return response( [
                 'success' => false,
                 'code'    => 'e2003',
-                'message' => 'failed to delete the resource.'
+                'message' => 'Delete data failed'
             ], 404 );
         }
         $task->delete();
         return response( [
             'success' => true,
             'code'    => 's2003',
-            'message' => 'delete data successfully.'
+            'message' => 'Data deleted successfully'
         ], 200 );
     }
 }
