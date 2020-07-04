@@ -31,6 +31,9 @@
         - Units
     - API Resources                                                         [Done]
     - AuthN && AuthZ
+        - Login API
+        - Register API
+        - Logout API
 - Vue UI
 
 ------------------------------------------------------------------------------------------------
@@ -60,3 +63,7 @@
     | Authentication |           |  e4004  |                                 |   Unauthenticated User       |
     | Authorization  |           |  e4005  |                                 |   Unauthorized User          |
     |----------------|-----------|---------|---------------------------------|------------------------------|
+
+
+- Packages
+    - For AuthN & AuthZ used { jwt-auth } to provide JWT Auth(N/Z)

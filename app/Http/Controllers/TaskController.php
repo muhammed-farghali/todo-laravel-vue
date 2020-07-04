@@ -12,7 +12,7 @@ class TaskController extends Controller
 {
     public function __construct ()
     {
-        $this->middleware( 'auth' );
+        $this->middleware( 'auth:api' );
     }
 
     /**
@@ -30,7 +30,7 @@ class TaskController extends Controller
             'code'    => $hasTasks ? 's2000' : 'e2000',
             'message' => $hasTasks ? 'Data gotten successfully' : 'Get data failed',
         ];
-        $hasTasks ? $res['data'] = new TaskCollection( $tasks ) : null;
+        $res['data'] = $hasTasks ? new TaskCollection( $tasks ) : [];
         return response( $res, 200 );
     }
 
