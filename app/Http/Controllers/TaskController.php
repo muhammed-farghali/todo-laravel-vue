@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Task as TaskResource;
+use App\Http\Resources\TaskCollection;
 use App\Task;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -28,7 +30,7 @@ class TaskController extends Controller
             'code'    => $hasTasks ? 's2000' : 'e2000',
             'message' => $hasTasks ? 'Data gotten successfully' : 'Get data failed',
         ];
-        $hasTasks ? $res['data'] = $tasks : null;
+        $hasTasks ? $res['data'] = new TaskCollection( $tasks ) : null;
         return response( $res, 200 );
     }
 
@@ -45,7 +47,7 @@ class TaskController extends Controller
             'success' => true,
             'code'    => 's2001',
             'message' => 'Data inserted successfully',
-            'data'    => $task
+            'data'    => new TaskResource( $task )
         ], 201 );
     }
 
@@ -79,7 +81,7 @@ class TaskController extends Controller
             'success' => true,
             'code'    => 's2000',
             'message' => 'Data gotten successfully',
-            'data'    => $task
+            'data'    => new TaskResource( $task )
         ];
         return response( $res, 200 );
     }
@@ -98,7 +100,7 @@ class TaskController extends Controller
             'success' => true,
             'code'    => 's2002',
             'message' => 'Data updated successfully',
-            'data'    => $task
+            'data'    => new TaskResource( $task )
         ], 200 );
     }
 

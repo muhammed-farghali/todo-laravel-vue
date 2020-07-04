@@ -29,7 +29,7 @@
                 - Authenticated user can (create|update|delete) task        [O]
                 - Unauthenticated user cannot (create|update|delete) task   [O]
         - Units
-    - API Resources                                                         [Working...]
+    - API Resources                                                         [Done]
     - AuthN && AuthZ
 - Vue UI
 

@@ -17,7 +17,6 @@ class ReadTasksTest extends TestCase
         $this->signIn();
         $tasks = factory( 'App\Task', 10 )->raw();
         $this->user->tasks()->createMany( $tasks );
-
         $this->getJson( '/api/tasks' )
              ->assertStatus( 200 )
              ->assertJson( [
