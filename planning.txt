@@ -12,11 +12,18 @@
                 - Task Seeder
             - users
     - Endpoints
-        - [GET]         api/tasks/
-        - [POST]        api/tasks/
-        - [GET]         api/tasks/{task}
-        - [PUT/PATCH]   api/tasks/{task}
-        - [DELETE]      api/tasks/{task}
+        - Tasks
+            - [GET]         api/tasks/
+            - [POST]        api/tasks/
+            - [GET]         api/tasks/{task}
+            - [PUT/PATCH]   api/tasks/{task}
+            - [DELETE]      api/tasks/{task}
+        - Authentication
+            - [POST]        api/auth/register
+            - [POST]        api/auth/login
+            - [POST]        api/auth/logout
+            - [POST]        api/auth/refresh
+            - [GET]         api/auth/profile
     - Testing
         - Features
             - Read Tasks                                                    [Done]
@@ -28,12 +35,20 @@
             - Create | Update | Delete Task                                 [Done]
                 - Authenticated user can (create|update|delete) task        [O]
                 - Unauthenticated user cannot (create|update|delete) task   [O]
+            - Register | Login | Logout | Refresh | Profile                 [Working..]
+                - Guest may register
+                - User may login
+                - User may logout
+                - User may refresh JWT token
+                - User may see profile
         - Units
     - API Resources                                                         [Done]
     - AuthN && AuthZ
         - Login API
         - Register API
         - Logout API
+        - Refresh API
+        - Profile API
 - Vue UI
 
 ------------------------------------------------------------------------------------------------
@@ -60,10 +75,14 @@
     | Post Data      |  s2001    |  e4001  |    Data inserted successfully   |   Insert data failed         |
     | Update Data    |  s2002    |  e4002  |    Data updated successfully    |   Update data failed         |
     | Delete Data    |  s2003    |  e4003  |    Data deleted successfully    |   Delete data failed         |
-    | Authentication |           |  e4004  |                                 |   Unauthenticated User       |
+    | Authentication |  s4004    |  e4004  |    Authenticated User           |   Unauthenticated User       |
     | Authorization  |           |  e4005  |                                 |   Unauthorized User          |
     |----------------|-----------|---------|---------------------------------|------------------------------|
 
 
 - Packages
-    - For AuthN & AuthZ used { jwt-auth } to provide JWT Auth(N/Z)
+    - For AuthN & AuthZ used { jwt-auth } package to provide JWT Auth(N/Z)
+        - Read Doc.
+        - Create Routes [api/auth/](login|logout|register|refresh|profile)
+        - Define Authentication Logic
+            - Create JWTAuthController
