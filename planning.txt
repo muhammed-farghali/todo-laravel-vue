@@ -36,9 +36,9 @@
                 - Authenticated user can (create|update|delete) task        [O]
                 - Unauthenticated user cannot (create|update|delete) task   [O]
             - Register | Login | Logout | Refresh | Profile                 [Working..]
-                - Guest may register
-                - User may login
-                - User may logout
+                - Guest may register                                        [Done]
+                - User may login                                            [Done]
+                - User may logout                                           [Done]
                 - User may refresh JWT token
                 - User may see profile
         - Units

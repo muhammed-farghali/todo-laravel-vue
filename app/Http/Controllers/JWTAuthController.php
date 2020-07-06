@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -21,18 +22,18 @@ class JWTAuthController extends Controller
     /**
      * Register a User.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function register ( Request $request )
     {
-        $validator = Validator::make( $request->all(), [
+        $validatedData = $request->validate( [
             'name'     => 'required|between:2,100',
             'email'    => 'required|email|unique:users|max:50',
             'password' => 'required|confirmed|string|min:6',
         ] );
 
         $user = User::create( array_merge(
-            $validator->validated(),
+            $validatedData,
             [ 'password' => bcrypt( $request->password ) ]
         ) );
 
@@ -45,7 +46,7 @@ class JWTAuthController extends Controller
     /**
      * Get a JWT via given credentials.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function login ( Request $request )
     {
@@ -68,7 +69,7 @@ class JWTAuthController extends Controller
     /**
      * Get the authenticated User.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function profile ()
     {
@@ -78,19 +79,18 @@ class JWTAuthController extends Controller
     /**
      * Log the user out (Invalidate the token).
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function logout ()
     {
         auth()->logout();
-
         return response()->json( [ 'message' => 'Successfully logged out' ] );
     }
 
     /**
      * Refresh a token.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function refresh ()
     {
@@ -102,7 +102,7 @@ class JWTAuthController extends Controller
      *
      * @param string $token
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     protected function createNewToken ( $token )
     {
