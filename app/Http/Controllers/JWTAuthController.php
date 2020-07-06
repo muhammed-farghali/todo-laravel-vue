@@ -83,6 +83,7 @@ class JWTAuthController extends Controller
      */
     public function logout ()
     {
+
         auth()->logout();
         return response()->json( [ 'message' => 'Successfully logged out' ] );
     }
@@ -94,6 +95,7 @@ class JWTAuthController extends Controller
      */
     public function refresh ()
     {
+        auth()->refresh();
         return $this->createNewToken( auth()->refresh() );
     }
 

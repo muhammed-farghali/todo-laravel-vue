@@ -40,7 +40,7 @@
                 - User may login                                            [Done]
                 - User may logout                                           [Done]
                 - User may refresh JWT token
-                - User may see profile
+                - User may see profile                                      [Done]
         - Units
     - API Resources                                                         [Done]
     - AuthN && AuthZ

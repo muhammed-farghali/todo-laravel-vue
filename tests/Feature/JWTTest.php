@@ -19,7 +19,6 @@ class JWTTest extends TestCase
         $this->postJson( '/api/auth/register', $userData )
              ->assertStatus( 201 )
              ->assertJsonStructure( [ 'message', 'user' ] );
-
     }
 
     /**
@@ -47,11 +46,43 @@ class JWTTest extends TestCase
     {
         $this->signIn();
         $token = JWTAuth::fromUser( $this->user );
+
         $this->postJson( '/api/auth/logout', [], [ 'Authorization' => "Bearer $token" ] )
              ->assertStatus( 200 )
              ->assertJson( [
                  'message' => 'Successfully logged out'
              ] );
+    }
+
+    /**
+     * @test
+     */
+    public function user_may_refresh_his_token ()
+    {
+        $this->signIn();
+        $token = JWTAuth::fromUser( $this->user );
+        $res = $this->postJson( '/api/auth/refresh', [], [ 'Authorization' => "Bearer $token" ] );
+        dd($res);
+        $this->postJson( '/api/auth/refresh', [], [ 'Authorization' => "Bearer $token" ] )
+             ->assertStatus( 200 )
+             ->assertJsonStructure( [
+                 'access_token', 'token_type', 'expires_in'
+             ] );
+    }
+
+
+    /**
+     * @test
+     */
+    public function user_may_see_his_profile ()
+    {
+        $this->signIn();
+        $this->getJson( '/api/auth/profile' )
+             ->assertStatus( 200 )
+             ->assertJsonStructure( [
+                 'name', 'email'
+             ] );
+
     }
 
 
