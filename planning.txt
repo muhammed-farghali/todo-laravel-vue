@@ -2,7 +2,7 @@
 - Note
     - If guest do not register:
         -> He'll deal only with UI without storing its data in DB
-        -> but store it in local storage
+        -> but store it in local storage or vuex
 - API
     - Database Structure
         - Tables
@@ -27,44 +27,40 @@
     - Testing
         - Features
             - Read Tasks                                                    [Done]
-                - Authenticated user access his tasks                       [O]
-                - Unauthenticated user cannot access the index page.        [O]
+                - Authenticated user access his tasks
+                - Unauthenticated user cannot access the index page.
             - Read Single Task                                              [Done]
-                - Authenticated user access task of his tasks               [O]
-                - Unauthenticated user cannot access single task.           [O]
+                - Authenticated user access task of his tasks
+                - Unauthenticated user cannot access single task.
             - Create | Update | Delete Task                                 [Done]
-                - Authenticated user can (create|update|delete) task        [O]
-                - Unauthenticated user cannot (create|update|delete) task   [O]
-            - Register | Login | Logout | Refresh | Profile                 [Working..]
-                - Guest may register                                        [Done]
-                - User may login                                            [Done]
-                - User may logout                                           [Done]
+                - Authenticated user can (create|update|delete) task
+                - Unauthenticated user cannot (create|update|delete) task
+            - Register | Login | Logout | Refresh | Profile                 [Done]
+                - Guest may register
+                - User may login
+                - User may logout
                 - User may refresh JWT token
-                - User may see profile                                      [Done]
+                - User may see profile
         - Units
     - API Resources                                                         [Done]
-    - AuthN && AuthZ
-        - Login API
-        - Register API
-        - Logout API
-        - Refresh API
-        - Profile API
 - Vue UI
+    - It'll be SPA
 
 ------------------------------------------------------------------------------------------------
 
 - Success [Data Structure]
     - {
-        success: true,
-        code: xxxx,
-        message: '......',
-        data: {}
+        "success": true,
+        "code": xxxx,
+        "message": "......",
+        "data": {}
     }
 - Error [Data Structure]
     - {
-        success: false,
-        code: xxxx,
-        message: '......'
+        "success": false,
+        "code": xxxx,
+        "message": "......",
+        "data": null
     }
 
 - Response Codes
@@ -75,8 +71,8 @@
     | Post Data      |  s2001    |  e4001  |    Data inserted successfully   |   Insert data failed         |
     | Update Data    |  s2002    |  e4002  |    Data updated successfully    |   Update data failed         |
     | Delete Data    |  s2003    |  e4003  |    Data deleted successfully    |   Delete data failed         |
-    | Authentication |  s4004    |  e4004  |    Authenticated User           |   Unauthenticated User       |
-    | Authorization  |           |  e4005  |                                 |   Unauthorized User          |
+    | Authentication |  s2004    |  e4004  |    Authenticated User           |   Unauthenticated User       |
+    | Authorization  |  s2005    |  e4005  |                                 |   Unauthorized User          |
     |----------------|-----------|---------|---------------------------------|------------------------------|
 
 

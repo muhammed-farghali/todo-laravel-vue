@@ -19,8 +19,8 @@ class CreateUpdateDeleteTaskTest extends TestCase
         $this->postJson( '/api/tasks', $task )
              ->assertStatus( 201 )->assertJson( [
                 'success' => true,
-                'code'    => 's2001',
-                'message' => 'Data inserted successfully',
+                'code'    => POST_SUCCESS,
+                'message' => 'your task added successfully.',
                 'data'    => $task
             ] );
     }
@@ -34,8 +34,8 @@ class CreateUpdateDeleteTaskTest extends TestCase
         $this->postJson( '/api/tasks', $task )
              ->assertStatus( 401 )->assertJson( [
                 'success' => false,
-                'code'    => 'e4004',
-                'message' => 'Unauthenticated User'
+                'code'    => AUTHENTICATED_FAILED,
+                'message' => 'unauthenticated user.'
             ] );
     }
 
@@ -54,8 +54,8 @@ class CreateUpdateDeleteTaskTest extends TestCase
         $this->putJson( $task->path(), $updateTask )
              ->assertStatus( 200 )->assertJson( [
                 'success' => true,
-                'code'    => 's2002',
-                'message' => 'Data updated successfully',
+                'code'    => UPDATE_SUCCESS,
+                'message' => 'your task updated successfully.',
                 'data'    => $updateTask
             ] );
 
@@ -70,8 +70,8 @@ class CreateUpdateDeleteTaskTest extends TestCase
         $this->putJson( $task->path(), [ 'name' => 'update task' ] )
              ->assertStatus( 401 )->assertJson( [
                 'success' => false,
-                'code'    => 'e4004',
-                'message' => 'Unauthenticated User'
+                'code'    => AUTHENTICATED_FAILED,
+                'message' => 'unauthenticated user.'
             ] );
     }
 
@@ -87,8 +87,9 @@ class CreateUpdateDeleteTaskTest extends TestCase
              ->assertStatus( 200 )
              ->assertJson( [
                  'success' => true,
-                 'code'    => 's2003',
-                 'message' => 'Data deleted successfully'
+                 'code'    => DELETE_SUCCESS,
+                 'message' => 'your task deleted successfully.',
+                 'data'    => []
              ] );
     }
 
@@ -102,8 +103,8 @@ class CreateUpdateDeleteTaskTest extends TestCase
              ->assertStatus( 401 )
              ->assertJson( [
                  'success' => false,
-                 'code'    => 'e4004',
-                 'message' => 'Unauthenticated User'
+                 'code'    => AUTHENTICATED_FAILED,
+                 'message' => 'unauthenticated user.'
              ] );
     }
 }

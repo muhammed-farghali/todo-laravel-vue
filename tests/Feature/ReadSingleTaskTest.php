@@ -26,8 +26,8 @@ class ReadSingleTaskTest extends TestCase
              ->assertStatus( 200 )
              ->assertJson( [
                  'success' => true,
-                 'code'    => 's2000',
-                 'message' => 'Data gotten successfully',
+                 'code'    => GET_SUCCESS,
+                 'message' => 'your task returned successfully.',
                  'data'    => $task
              ] );
 
@@ -35,8 +35,8 @@ class ReadSingleTaskTest extends TestCase
              ->assertStatus( 401 )
              ->assertJson( [
                  'success' => false,
-                 'code'    => 'e4005',
-                 'message' => 'Unauthorized User',
+                 'code'    => AUTHORIZED_FAILED,
+                 'message' => 'unauthorized user.',
              ] );
     }
 
@@ -51,8 +51,24 @@ class ReadSingleTaskTest extends TestCase
              ->assertStatus( 401 )
              ->assertJson( [
                  'success' => false,
-                 'code'    => 'e4004',
-                 'message' => 'Unauthenticated User'
+                 'code'    => AUTHENTICATED_FAILED,
+                 'message' => 'unauthenticated user.'
+             ] );
+    }
+
+    /**
+     * @test
+     */
+    public function authenticated_user_cannot_access_not_exist_task ()
+    {
+        $this->signIn();
+        $this->user->tasks()->create( factory( 'App\Task' )->raw() );
+        $this->getJson( '/api/tasks/asd' )
+             ->assertStatus( 404 )
+             ->assertJson( [
+                 'success' => false,
+                 'code'    => 'e4000',
+                 'message' => 'resource not found.'
              ] );
     }
 }

@@ -21,9 +21,25 @@ class ReadTasksTest extends TestCase
              ->assertStatus( 200 )
              ->assertJson( [
                  'success' => true,
-                 'code'    => 's2000',
-                 'message' => 'Data gotten successfully',
+                 'code'    => GET_SUCCESS,
+                 'message' => 'your tasks returned successfully.',
                  'data'    => $tasks
+             ] );
+    }
+
+    /**
+     * @test
+     */
+    public function authenticated_user_has_no_tasks ()
+    {
+        $this->signIn();
+        $this->getJson( '/api/tasks' )
+             ->assertStatus( 200 )
+             ->assertJson( [
+                 'success' => true,
+                 'code'    => GET_SUCCESS,
+                 'message' => 'you have no tasks.',
+                 'data'    => []
              ] );
     }
 
@@ -36,8 +52,8 @@ class ReadTasksTest extends TestCase
              ->assertStatus( 401 )
              ->assertJson( [
                  'success' => false,
-                 'code'    => 'e4004',
-                 'message' => 'Unauthenticated User'
+                 'code'    => AUTHENTICATED_FAILED,
+                 'message' => 'unauthenticated user.',
              ] );
     }
 }

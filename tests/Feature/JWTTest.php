@@ -61,8 +61,6 @@ class JWTTest extends TestCase
     {
         $this->signIn();
         $token = JWTAuth::fromUser( $this->user );
-        $res = $this->postJson( '/api/auth/refresh', [], [ 'Authorization' => "Bearer $token" ] );
-        dd($res);
         $this->postJson( '/api/auth/refresh', [], [ 'Authorization' => "Bearer $token" ] )
              ->assertStatus( 200 )
              ->assertJsonStructure( [

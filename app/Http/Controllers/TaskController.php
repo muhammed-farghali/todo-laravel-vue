@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Resources\Task as TaskResource;
 use App\Http\Resources\TaskCollection;
 use App\Task;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class TaskController extends Controller
 {
@@ -18,72 +18,57 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return JsonResponse
      */
     public function index ()
     {
         $tasks = auth()->user()->tasks;
         $hasTasks = $tasks->isEmpty() ? false : true;
-
-        $res = [
-            'success' => $hasTasks ? true : false,
-            'code'    => $hasTasks ? 's2000' : 'e2000',
-            'message' => $hasTasks ? 'Data gotten successfully' : 'Get data failed',
-        ];
-        $res['data'] = $hasTasks ? new TaskCollection( $tasks ) : [];
-        return response( $res, 200 );
+        if ( $hasTasks ) {
+            $data = new TaskCollection( $tasks );
+            $message = "your tasks returned successfully.";
+        } else {
+            $data = [];
+            $message = "you have no tasks.";
+        }
+        return $this->successResponse( $data, GET_SUCCESS, $message, 200 );
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function store ( Request $request )
     {
         $task = auth()->user()->tasks()->create( $request->all() );
-        return response( [
-            'success' => true,
-            'code'    => 's2001',
-            'message' => 'Data inserted successfully',
-            'data'    => new TaskResource( $task )
-        ], 201 );
+        return $this->successResponse( new TaskResource( $task ),
+            POST_SUCCESS,
+            'your task added successfully.',
+            201 );
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
-     * @return Response
+     * @param Task $task
+     * @return JsonResponse
      */
-    public function show ( int $id )
+    public function show ( Task $task )
     {
-        $task = Task::find( $id );
-
         if ( $task === null ) {
-            return response( [
-                'success' => false,
-                'code'    => 'e2000',
-                'message' => 'Get data failed'
-            ], 404 );
+            return $this->errorResponse( GET_FAILED, 'task not found.', 404 );
         }
 
         if ( (int)$task->user_id !== (int)auth()->user()->id ) {
-            $res = [
-                'success' => false,
-                'code'    => 'e4005',
-                'message' => 'Unauthorized User'
-            ];
-            return response( $res, 401 );
+            return $this->errorResponse( AUTHORIZED_FAILED, 'unauthorized user.', 401 );
         }
-        $res = [
-            'success' => true,
-            'code'    => 's2000',
-            'message' => 'Data gotten successfully',
-            'data'    => new TaskResource( $task )
-        ];
-        return response( $res, 200 );
+
+        return $this->successResponse( new TaskResource( $task ),
+            GET_SUCCESS,
+            'your task returned successfully.',
+            200 );
     }
 
     /**
@@ -91,40 +76,29 @@ class TaskController extends Controller
      *
      * @param Request $request
      * @param Task    $task
-     * @return Response
+     * @return JsonResponse
      */
     public function update ( Request $request, Task $task )
     {
         $task->update( $request->all() );
-        return response( [
-            'success' => true,
-            'code'    => 's2002',
-            'message' => 'Data updated successfully',
-            'data'    => new TaskResource( $task )
-        ], 200 );
+        return $this->successResponse( new TaskResource( $task ),
+            UPDATE_SUCCESS,
+            'your task updated successfully.',
+            200 );
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     * @return Response
+     * @param Task $task
+     * @return JsonResponse
      */
-    public function destroy ( int $id )
+    public function destroy ( Task $task )
     {
-        $task = Task::find( $id );
-        if ( $task === null ) {
-            return response( [
-                'success' => false,
-                'code'    => 'e2003',
-                'message' => 'Delete data failed'
-            ], 404 );
-        }
         $task->delete();
-        return response( [
-            'success' => true,
-            'code'    => 's2003',
-            'message' => 'Data deleted successfully'
-        ], 200 );
+        return $this->successResponse( null,
+            DELETE_SUCCESS,
+            'your task deleted successfully.',
+            200 );
     }
 }

@@ -95,9 +95,9 @@ class JWTAuthController extends Controller
      */
     public function refresh ()
     {
-        auth()->refresh();
         return $this->createNewToken( auth()->refresh() );
     }
+
 
     /**
      * Get the token array structure.
