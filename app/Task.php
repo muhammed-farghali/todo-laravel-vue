@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model
 {
     protected $guarded = [];
+//    protected $fillable = ['name', 'task_day', 'start_at', 'end_at', 'description'];
 
 
     public function user ()
@@ -18,4 +19,5 @@ class Task extends Model
     {
         return '/api/tasks/' . $this->id;
     }
+
 }

@@ -22,9 +22,8 @@ class TaskController extends Controller
      */
     public function index ()
     {
-        $tasks = auth()->user()->tasks;
-        $hasTasks = $tasks->isEmpty() ? false : true;
-        if ( $hasTasks ) {
+        $tasks = auth()->user()->tasks()->latest()->paginate( 6 );
+        if ( !$tasks->isEmpty() ) {
             $data = new TaskCollection( $tasks );
             $message = "your tasks returned successfully.";
         } else {
@@ -42,7 +41,9 @@ class TaskController extends Controller
      */
     public function store ( Request $request )
     {
-        $task = auth()->user()->tasks()->create( $request->all() );
+        $data = $request->except( 'token' );
+        $data['duration'] = date( 'H:i', strtotime( $data['end_at'] ) - strtotime( $data['start_at'] ) );
+        $task = auth()->user()->tasks()->create( $data );
         return $this->successResponse( new TaskResource( $task ),
             POST_SUCCESS,
             'your task added successfully.',

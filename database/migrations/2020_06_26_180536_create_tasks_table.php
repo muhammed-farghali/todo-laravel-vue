@@ -17,10 +17,11 @@ class CreateTasksTable extends Migration
             $table->id();
             $table->string( 'name' );
             $table->text( 'description' )->nullable();
-            $table->tinyInteger( 'duration' )->nullable();
-            $table->date( 'task_day' )->nullable();
-            $table->time( 'start_at', 0 )->nullable();
-            $table->time( 'end_at', 0 )->nullable();
+            $table->string( 'duration' );
+            $table->date( 'task_day' )->default(date('Y-m-d'));
+            $table->time( 'start_at', 0 );
+            $table->time( 'end_at', 0 );
+            $table->boolean('done')->default(false);
             $table->unsignedBigInteger( 'user_id' );
             $table->timestamps();
         } );

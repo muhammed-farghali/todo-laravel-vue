@@ -23,7 +23,6 @@ class ReadTasksTest extends TestCase
                  'success' => true,
                  'code'    => GET_SUCCESS,
                  'message' => 'your tasks returned successfully.',
-                 'data'    => $tasks
              ] );
     }
 
