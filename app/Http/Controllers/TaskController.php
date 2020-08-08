@@ -22,7 +22,7 @@ class TaskController extends Controller
      */
     public function index ()
     {
-        $tasks = auth()->user()->tasks()->latest()->paginate( 6 );
+        $tasks = auth()->user()->tasks()->latest()->paginate( 5 );
         if ( !$tasks->isEmpty() ) {
             $data = new TaskCollection( $tasks );
             $message = "your tasks returned successfully.";
@@ -81,7 +81,18 @@ class TaskController extends Controller
      */
     public function update ( Request $request, Task $task )
     {
-        $task->update( $request->all() );
+        $data = $request->except( 'token' );
+        $data['duration'] = date( 'H:i', strtotime( $data['end_at'] ) - strtotime( $data['start_at'] ) );
+        $task->update( $data );
+        return $this->successResponse( new TaskResource( $task ),
+            UPDATE_SUCCESS,
+            'your task updated successfully.',
+            200 );
+    }
+
+    public function toggleTaskStatus(Request $request, Task $task) {
+        $task->done = $request->done;
+        $task->save();
         return $this->successResponse( new TaskResource( $task ),
             UPDATE_SUCCESS,
             'your task updated successfully.',

@@ -28,4 +28,5 @@ Route::group( [ 'prefix' => 'auth' ], function ( $router ) {
 
 Route::resource( 'tasks', 'TaskController' )
      ->except( [ 'edit', 'create' ] );
+Route::put('tasks/{task}/done', 'TaskController@toggleTaskStatus');
 
